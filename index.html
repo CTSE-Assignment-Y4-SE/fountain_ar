@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.rawgit.com/jeromeetienne/ar.js/1.7.2/aframe/build/aframe-ar.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
+  </head>
+  <body style="margin: 0; overflow: hidden">
+    <a-scene
+      embedded
+      arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
+    >
+      <a-assets>
+        <!-- Load 3D model -->
+        <a-asset-item id="fountain-model" src="fountain.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- Use custom marker with Barcode 5 -->
+      <a-marker type="barcode" value="5">
+        <!-- Fountain model with pulsing animation -->
+        <a-entity
+          gltf-model="#fountain-model"
+          scale="0.2 0.2 0.2"
+          position="0 0 0.5"
+          animation="property: scale; dir: alternate; dur: 1000; loop: true; to: 0.25 0.25 0.25"
+        >
+        </a-entity>
+
+        <!-- Particle spray effect -->
+        <a-entity
+          particle-system="preset: dust; particleCount: 200"
+          position="0 1.5 0"
+        >
+        </a-entity>
+      </a-marker>
+
+      <a-entity camera></a-entity>
+    </a-scene>
+  </body>
+</html>
