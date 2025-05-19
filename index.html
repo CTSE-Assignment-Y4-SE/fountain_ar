@@ -11,27 +11,44 @@
       arjs="sourceType: webcam; trackingMethod: best; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;"
     >
       <a-assets>
-        <!-- Load 3D model -->
         <a-asset-item id="fountain-model" src="fountain.glb"></a-asset-item>
       </a-assets>
 
-      <!-- Use custom marker with Barcode 5 -->
       <a-marker type="barcode" value="5">
-        <!-- Fountain model with pulsing animation -->
         <a-entity
           gltf-model="#fountain-model"
-          scale="0.2 0.2 0.2"
-          position="0 0 0.5"
-          animation="property: scale; dir: alternate; dur: 1000; loop: true; to: 0.25 0.25 0.25"
+          scale="0.15 0.15 0.15"
+          position="0 -1 0"
+          rotation="0 180 0"
+          animation="property: scale; dir: alternate; dur: 1000; loop: true; to: 0.18 0.18 0.18"
         >
         </a-entity>
+        <!-- Stronger and global lighting -->
+        <a-entity light="type: directional; intensity: 1.5;" position="0 1 1" />
+        <a-entity light="type: ambient; intensity: 1.0;" />
 
-        <!-- Particle spray effect -->
+        <!-- Optional hemisphere light for more realism -->
+        <a-entity light="type: hemisphere; intensity: 0.8;" position="0 1 0" />
+
+        <!-- Glow sphere -->
         <a-entity
-          particle-system="preset: dust; particleCount: 200"
+          geometry="primitive: ring; radiusInner: 0.05; radiusOuter: 0.1"
+          material="color: #00ccff; emissive: #00ccff; emissiveIntensity: 1; transparent: true; opacity: 0.6"
+          position="0 1.55 0"
+          rotation="-90 0 0"
+        />
+
+        <!-- Glow light -->
+        <a-entity
+          light="type: point; intensity: 0.8; color: #00ccff; distance: 2"
+          position="0 1.55 0"
+        />
+
+        <!-- Water particle spray -->
+        <a-entity
+          particle-system="preset: rain; particleCount: 500; size: 0.05; color: #00ccff"
           position="0 1.5 0"
-        >
-        </a-entity>
+        />
       </a-marker>
 
       <a-entity camera></a-entity>
